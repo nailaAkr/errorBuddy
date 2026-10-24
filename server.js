@@ -8,7 +8,7 @@ const { MongoClient } = require("mongodb");
 const app = express();
 
 const PORT = process.env.PORT || 3000;
-const OLLAMA_URL = process.env.OLLAMA_URL || "http://127.0.0.1:11434";
+const OLLAMA_URL = "https://ollama.com";
 const OLLAMA_MODEL = process.env.OLLAMA_MODEL || "gemma3:1b";
 
 app.use(express.json({ limit: "1mb" }));
@@ -174,8 +174,11 @@ ${followUp || "(Initial error analysis)"}
 Please diagnose the issue and answer the follow-up if one was provided.
 `;
 
-        const ollamaResponse = await fetch(`${OLLAMA_URL}/api/chat`, {
-            method: "POST",
+headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${process.env.OLLAMA_API_KEY}`
+},
+        method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
