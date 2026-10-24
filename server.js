@@ -179,23 +179,24 @@ headers: {
     "Authorization": `Bearer ${process.env.OLLAMA_API_KEY}`
 },
         method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                model: OLLAMA_MODEL,
-                stream: false,
-                format: "json",
-                messages: [
-                    { role: "system", content: systemPrompt },
-                    { role: "user", content: userPrompt }
-                ],
-               options: {
-    temperature: 0.1,
-    num_predict: 180
-}
-            })
-        });
+headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${process.env.OLLAMA_API_KEY}`
+},
+body: JSON.stringify({
+    model: OLLAMA_MODEL,
+    stream: false,
+    format: "json",
+    messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: userPrompt }
+    ],
+    options: {
+        temperature: 0.1,
+        num_predict: 180
+    }
+    })
+    });
 
         if (!ollamaResponse.ok) {
             const details = await ollamaResponse.text();
