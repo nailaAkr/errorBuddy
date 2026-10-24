@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ErrorBuddy AI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <h2>🐛 ErrorBuddy</h2>
+      <p class="muted">Your personal debugger</p>
+
+      <button id="newChatBtn">+ New analysis</button>
+      <button id="historyBtn" class="secondary">Recent errors</button>
+      <button id="settingsBtn" class="secondary">Preferences</button>
+
+      <div class="sidebar-bottom">
+        <span class="dot"></span> Gemma · Local AI
+        <p class="muted">Ctrl + Enter to analyze</p>
+      </div>
+    </aside>
+
+    <main>
+      <header>
+        <div>
+          <div class="eyebrow">DEBUGGING, WITHOUT THE HEADACHE</div>
+          <h1>Let's fix that error.</h1>
+        </div>
+        <div class="avatar" title="ErrorBuddy profile">E</div>
+      </header>
+
+      <section id="workspace">
+        <div class="intro">
+          <div class="sparkle">✳</div>
+          <h2>Paste the error. Get to the point.</h2>
+          <p class="muted">
+            Short answers by default. Your preferences are remembered.
+          </p>
+        </div>
+
+        <form id="analyzeForm" class="card">
+          <label for="errorText">Console error or stack trace</label>
+          <textarea
+            id="errorText"
+            placeholder="Paste your error message or stack trace..."
+            maxlength="12000"
+            required
+          ></textarea>
+
+          <div class="form-footer">
+            <button type="button" id="pasteErrorBtn" class="secondary">
+              Paste error
+            </button>
+            <span id="errorCount" class="muted small">0 / 12000</span>
+          </div>
+
+          <label for="codeText">Relevant code (optional)</label>
+          <textarea
+            id="codeText"
+            placeholder="Paste the code around the error..."
+            maxlength="12000"
+          ></textarea>
+
+          <label for="analysisLanguage">Programming language</label>
+          <select id="analysisLanguage">
+            <option value="Auto-detect">Auto-detect</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="Python">Python</option>
+            <option value="C++">C++</option>
+            <option value="Java">Java</option>
+            <option value="Other">Other</option>
+          </select>
+
+          <div class="form-footer">
+            <span class="muted small">
+              Don't paste passwords or API keys.
+            </span>
+            <div class="action-buttons">
+              <button type="button" id="clearAnalysisBtn" class="secondary">
+                Clear
+              </button>
+              <button type="submit" id="analyzeBtn">
+                Explain error ↗
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <section id="answerSection" class="card hidden">
+          <div class="panel-heading">
+            <h3>✦ ErrorBuddy says</h3>
+            <button type="button" id="copyAnswerBtn" class="secondary">
+              Copy answer
+            </button>
+          </div>
+
+          <div class="answer-badges">
+            <span id="severityBadge" class="severity-badge">
+              Severity: Pending
+            </span>
+            <span id="confidenceBadge" class="confidence-badge">
+              Confidence: Pending
+            </span>
+          </div>
+
+          <p id="answerMeta" class="muted small">
+            Short answer · Beginner-friendly
+          </p>
+
+          <div id="answer" class="answer"></div>
+
+          <div class="prevention-tip">
+            <strong>Prevent it next time</strong>
+            <p id="preventionTip" class="muted">
+              A prevention tip will appear with your analysis.
+            </p>
+          </div>
+
+          <form id="followUpForm" class="followup">
+            <input
+              id="followUpInput"
+              placeholder="Ask a follow-up. No need to repeat the error..."
+              maxlength="2000"
+              autocomplete="off"
+            >
+            <button type="submit" id="followUpBtn">Ask ↗</button>
+          </form>
+          <p class="muted small">
+            Press Enter to ask · Esc to clear this question
+          </p>
+        </section>
+
+        <p id="status" class="status" role="status"></p>
+      </section>
+
+      <section id="settingsPanel" class="card hidden">
+        <div class="panel-heading">
+          <h2>My preferences</h2>
+          <button type="button" id="backBtn" class="secondary">
+            ← Back
+          </button>
+        </div>
+
+        <p class="muted">
+          Set your preferences once. No repeated instructions.
+        </p>
+
+        <label for="answerStyle">Answer length</label>
+        <select id="answerStyle">
+          <option value="short">Short — just the useful bits</option>
+          <option value="detailed">Detailed — explain more</option>
+        </select>
+
+        <label for="explanationLevel">Explanation style</label>
+        <select id="explanationLevel">
+          <option value="beginner">Beginner-friendly</option>
+          <option value="experienced">Technical / experienced</option>
+        </select>
+
+        <label for="language">Main programming language</label>
+        <select id="language">
+          <option>Auto-detect</option>
+          <option>JavaScript</option>
+          <option>Python</option>
+          <option>C++</option>
+          <option>Java</option>
+          <option>Other</option>
+        </select>
+
+        <button id="saveSettingsBtn" type="button">
+          Save preferences
+        </button>
+        <p id="settingsStatus" class="status"></p>
+      </section>
+
+      <section id="historyPanel" class="card hidden">
+        <div class="panel-heading">
+          <h2>Recent errors</h2>
+          <button type="button" id="historyBackBtn" class="secondary">
+            ← Back
+          </button>
+        </div>
+        <div id="historyList"></div>
+      </section>
+
+      <footer>Less debugging stress. More building. ✦</footer>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
