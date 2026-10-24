@@ -196,14 +196,18 @@ const ollamaResponse = await fetch(`${OLLAMA_URL}/api/chat`, {
     })
     });
 
-        if (!ollamaResponse.ok) {
-            const details = await ollamaResponse.text();
+        
+if (!ollamaResponse.ok) {
+    const details = await ollamaResponse.text();
 
-            return res.status(502).json({
-                error: "Could not get a response from Ollama. Make sure Ollama is running and the model is installed.",
-                details
-            });
-        }
+    console.error("Ollama API error:", ollamaResponse.status, details);
+
+    return res.status(502).json({
+        error: "Ollama request failed.",
+        details: details
+    });
+}
+
 
         const ollamaData = await ollamaResponse.json();
         const rawAnswer = ollamaData.message?.content || "";
