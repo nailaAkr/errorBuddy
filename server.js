@@ -174,17 +174,15 @@ ${followUp || "(Initial error analysis)"}
 Please diagnose the issue and answer the follow-up if one was provided.
 `;
 
-headers: {
-    "Content-Type": "application/json",
-    "Authorization": `Bearer ${process.env.OLLAMA_API_KEY}`
-},
-        method: "POST",
-headers: {
-    "Content-Type": "application/json",
-    "Authorization": `Bearer ${process.env.OLLAMA_API_KEY}`
-},
-body: JSON.stringify({
-    model: OLLAMA_MODEL,
+
+const ollamaResponse = await fetch(`${OLLAMA_URL}/api/chat`, {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${process.env.OLLAMA_API_KEY}`
+    },
+    body: JSON.stringify({
+        model: OLLAMA_MODEL,
     stream: false,
     format: "json",
     messages: [
